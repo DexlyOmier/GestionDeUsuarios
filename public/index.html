@@ -1,0 +1,149 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>PRACTICA DE SEGURIDAD SISTEMAS OPERATIVOS 2</title>
+</head>
+<body class="grey lighten-3">
+
+    <!-- NAVBAR -->
+    <nav class="z-depth-0 grey lighten-4">
+        <div class="nav-wrapper container">
+        <a href="#" class="brand-logo">
+            <img src="img/logo.svg" style="width: 105px; margin-top: 0px;"/>
+        </a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+              <li class="logged-in" style="display: none;">
+                <a href="#" class="grey-text modal-trigger" data-target="modal-account">Cuenta</a>
+              </li>
+              <li class="logged-in" style="display: none;">
+                <a href="#" class="grey-text" id="logout">Cerrar sesion</a>
+              </li>
+              <li class="admin" style="display: none;">
+                <a href="#" class="grey-text modal-trigger" data-target="modal-create">Crear articulo</a>
+              </li>
+              <li class="logged-out" style="display: none;">
+                <a href="#" class="grey-text modal-trigger" data-target="modal-login">Login</a>
+              </li>
+              <!--<li class="logged-out" style="display: none;">
+                <a href="#" class="grey-text modal-trigger" data-target="modal-signup">Registrarme</a>
+              </li>!-->
+          </ul>
+        </div>
+    </nav>
+
+     <!-- ADMIN ACTIONS -->
+  <form class="center-align admin-actions admin" style="margin: 40px auto; max-width: 300px; display: none;">
+    <input type="email" placeholder="Correo de usuario" id="admin-email" required />
+    <button class="btn-small yellow darken-2 z-depth-0">Dar privilegios de escritura</button>
+  </form>
+
+    <!--MODAL de Registro-->
+    <div id="modal-signup" class="modal">
+        <div class="modal-content">
+          <h4>Registrarme</h4><br />
+          <form id="signup-form">
+            <div class="input-field">
+              <input type="email" id="signup-email" required />
+              <label for="signup-email">Correo</label>
+            </div>
+            <div class="input-field">
+              <input type="password" id="signup-password" required />
+              <label for="signup-password">Contraseña</label>
+            </div>
+            <div class="input-field">
+                <input type="text" id="signup-bio" required />
+                <label for="signup-bio">Descripcion</label>
+            </div>
+            <button class="btn yellow darken-2 z-depth-0">Registrarme</button>
+            <p class="error pink-text center-align"></p>
+          </form>
+        </div>
+    </div>
+
+    <!-- MODAL de Logeo -->
+    <div id="modal-login" class="modal">
+        <div class="modal-content">
+          <h4>Iniciar sesion</h4><br />
+          <form id="login-form">
+            <div class="input-field">
+              <input type="email" id="login-email" required />
+              <label for="login-email">Correo</label>
+            </div>
+            <div class="input-field">
+              <input type="password" id="login-password" required />
+              <label for="login-password">Contraseña</label>
+            </div>
+            <button class="btn yellow darken-2 z-depth-0">Iniciar sesion</button>
+            <p class="error pink-text center-align"></p>
+          </form>
+        </div>
+    </div>
+    
+    <!-- MODAL de Cuenta -->
+    <div id="modal-account" class="modal">
+        <div class="modal-content center-align">
+          <h4>Detalles de cuenta</h4><br />
+          <div class="account-details"></div>
+        </div>
+    </div>
+
+     <!-- MODAL de Crear Articulo -->
+    <div id="modal-create" class="modal">
+        <div class="modal-content">
+          <h4>Crear Articulo</h4><br />
+          <form id="create-form">
+            <div class="input-field">
+              <input type="text" id="title" required>
+              <label for="title">Titulo del articulo</label>
+            </div>
+            <div class="input-field">
+              <textarea id="content" class="materialize-textarea" required></textarea>
+              <label for="content">Contenido del articulo</label>
+            </div>
+            <button class="btn yellow darken-2 z-depth-0">Crear</button>
+          </form>
+        </div>
+    </div>
+
+    <!-- LISTA DE ARTICULOS -->
+    <div class="container" style="margin-top: 40px;">
+        <ul class="collapsible z-depth-0 guides" style="border: none;">
+
+        </ul>
+    </div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-functions.js"></script>
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBbZxsQ-lXVRGeLtlA7cdrPtfW3dQpILLg",
+    authDomain: "gestiondeusuarios-662f3.firebaseapp.com",
+    databaseURL: "https://gestiondeusuarios-662f3.firebaseio.com",
+    projectId: "gestiondeusuarios-662f3",
+    storageBucket: "gestiondeusuarios-662f3.appspot.com",
+    messagingSenderId: "131094447935",
+    appId: "1:131094447935:web:5ffb3d181e547898a1b58a",
+    measurementId: "G-DNL9PX2LWG"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+  const functions = firebase.functions();
+
+</script>
+
+    <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="scripts/auth.js"></script>
+  <script src="scripts/index.js"></script>
+</body>
+</html>
